@@ -55,7 +55,26 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen(); 
+
+    // Draw Screen Routine
+
+    // Temporary
+    int gameHeight = 10;
+    int gameWidth = 20;
+
+    int row, column;
+    for(row = 0; row < gameHeight; row++){
+        MacUILib_printf("%c", '\n');
+        for(column = 0; column < gameWidth; column++){
+            if(column == 0 || row == 0 || column == gameWidth - 1 || row == gameHeight - 1){
+                MacUILib_printf("%c", '%');
+            }
+            else{
+                MacUILib_printf("%c", ' ');
+            }
+        }
+    }
 }
 
 void LoopDelay(void)
