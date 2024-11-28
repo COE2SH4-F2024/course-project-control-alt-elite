@@ -9,6 +9,8 @@ GameMechs::GameMechs()
     exitFlag = false;
     loseFlag = false;
     score = 0;
+
+    srand(time(NULL));
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -20,6 +22,8 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false;
     loseFlag = false;
     score = 0;
+
+    srand(time(NULL));
 }
 
 GameMechs::~GameMechs()
@@ -85,3 +89,25 @@ void GameMechs::clearInput()
 }
 
 // More methods should be added here
+
+void GameMechs::generateFood(objPos blockOff)
+{
+    int newX, newY;
+
+    int invalid;
+    do{
+        invalid = 0;
+
+        newX = (rand() % (boardSizeX - 2)) + 1;
+        newY = (rand() % (boardSizeY - 2)) + 1;
+
+        invalid |= (newX == blockOff.pos->x || newY == blockOff.pos->y);
+    }while(invalid);
+
+    food.setObjPos(newX, newY, 'O');
+}
+
+objPos GameMechs::getFoodPos() const
+{
+    return food;
+}

@@ -42,9 +42,11 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    // Create game mechs on heap
+    // Create game mechs and player on heap
     game = new GameMechs(20, 10);
     player = new Player(game);
+
+    game->generateFood(player->getPlayerPos());
 }
 
 void GetInput(void)
@@ -75,6 +77,7 @@ void DrawScreen(void)
     int gameWidth = game->getBoardSizeX();
 
     objPos currentPlayerPos = player->getPlayerPos();
+    objPos currentFoodPos = game->getFoodPos();
 
     int row, column;
     for(row = 0; row < gameHeight; row++){
@@ -85,6 +88,10 @@ void DrawScreen(void)
             else if(row == currentPlayerPos.pos->y && column == currentPlayerPos.pos->x)
             {
                 MacUILib_printf("%c", currentPlayerPos.getSymbol());
+            }
+            else if(row == currentFoodPos.pos->y && column == currentFoodPos.pos->x)
+            {
+                MacUILib_printf("%c", currentFoodPos.getSymbol());
             }
             else{
                 MacUILib_printf("%c", ' ');
