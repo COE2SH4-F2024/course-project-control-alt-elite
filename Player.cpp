@@ -5,17 +5,17 @@ Player::Player(GameMechs* thisGMRef)
 {
     GMRef = thisGMRef;
     myDir = STOP;
-    playerPos.pos->x = 5;
-    playerPos.pos->y = 5;
-    playerPos.symbol = '*';
+    playerPos.pos->x = GMRef->getBoardSizeX()/2;
+    playerPos.pos->y = GMRef->getBoardSizeY()/2;
+    playerPos.symbol = '@';
 }
 
 Player::Player()
 {
     myDir = STOP;
-    playerPos.pos->x = 5;
+    playerPos.pos->x = 10;
     playerPos.pos->y = 5;
-    playerPos.symbol = '*';
+    playerPos.symbol = '@';
 }
 
 Player::Player(int xPos, int yPos, char sym)
@@ -84,6 +84,30 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+    if(myDir==UP){
+        playerPos.pos->y -= 1;
+        if(playerPos.pos->y < 1){
+            playerPos.pos->y = GMRef->getBoardSizeY() - 2;
+        }
+    }
+    else if(myDir==DOWN){
+        playerPos.pos->y += 1;
+        if(playerPos.pos->y == GMRef->getBoardSizeY() - 1){
+            playerPos.pos->y = 1;
+        }
+    }
+    else if(myDir==LEFT){
+        playerPos.pos->x -= 1;
+        if(playerPos.pos->x < 1){
+            playerPos.pos->x = GMRef->getBoardSizeX() - 2;
+        }
+    }
+    else if(myDir==RIGHT){
+        playerPos.pos->x += 1;
+        if(playerPos.pos->x == GMRef->getBoardSizeX() - 1){
+            playerPos.pos->x = 1;
+        }
+    }
 }
 
 // More methods to be added

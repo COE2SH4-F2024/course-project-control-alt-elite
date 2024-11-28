@@ -17,7 +17,6 @@ void CleanUp(void);
 
 // Global gameMechs pointer
 GameMechs* game = nullptr;
-
 Player* player =  nullptr;
 
 int main(void)
@@ -61,6 +60,8 @@ void GetInput(void)
 
 void RunLogic(void)
 {
+    player->updatePlayerDir();
+    player->movePlayer();
 }
 
 void DrawScreen(void)
@@ -72,10 +73,11 @@ void DrawScreen(void)
     // Temporary
     int gameHeight = game->getBoardSizeY();
     int gameWidth = game->getBoardSizeX();
-    int row, column;
-    objPos currentPlayerPos = player->getPlayerPos();
-    for(row = 0; row < gameHeight; row++){
 
+    objPos currentPlayerPos = player->getPlayerPos();
+
+    int row, column;
+    for(row = 0; row < gameHeight; row++){
         for(column = 0; column < gameWidth; column++){
             if(column == 0 || row == 0 || column == gameWidth - 1 || row == gameHeight - 1){
                 MacUILib_printf("%c", '#');
