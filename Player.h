@@ -25,13 +25,19 @@ class Player
         void movePlayer();
 
         // More methods to be added here
+        Player();
+        Player(int xPos, int yPos, char sym);
+        Player(const Player &m);
+        Player& operator=(const Player &m);
+
 
     private:
         objPos playerPos; // Upgrade this in iteration 3.       
         enum Dir myDir;
 
         // Need a reference to the Main Game Mechanisms
-        GameMechs* mainGameMechsRef;
+        GameMechs* GMRef;
+        
 };
 
 #endif

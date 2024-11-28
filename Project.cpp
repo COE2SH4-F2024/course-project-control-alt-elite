@@ -2,6 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ void CleanUp(void);
 // Global gameMechs pointer
 GameMechs* game = nullptr;
 
+Player* player =  nullptr;
 
 int main(void)
 {
@@ -43,6 +45,7 @@ void Initialize(void)
 
     // Create game mechs on heap
     game = new GameMechs(20, 10);
+    player = new Player(game);
 }
 
 void GetInput(void)
@@ -58,70 +61,34 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    if(game->getInput() != 0)  // if not null character
-    {
-        switch(game->getInput())
-        {                      
-            case ' ':  // exit
-                game->setExitTrue();
-                break;
-
-            case 'w':
-            case 'W':
-                /*if(direction!=DOWN && direction!=UP){
-                    direction = UP;
-                }*/
-                break;
-
-            case 's':
-            case 'S':
-                /*if(direction!=DOWN && direction!=UP){
-                    direction = DOWN;
-                }*/
-                break;
-
-            case 'a':
-            case 'A':
-                /*if(direction!=RIGHT && direction!=LEFT){
-                    direction = LEFT;
-                }*/
-                break;
-
-            case 'd':
-            case 'D':
-                /*if(direction!=RIGHT && direction!=LEFT){
-                    direction = RIGHT;
-                }*/
-                break;
-
-            default:
-                break;
-        }
-        game->clearInput();
-    }
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen(); 
-
+    
     // Draw Screen Routine
 
     // Temporary
     int gameHeight = game->getBoardSizeY();
     int gameWidth = game->getBoardSizeX();
-
     int row, column;
+    objPos currentPlayerPos = player->getPlayerPos();
     for(row = 0; row < gameHeight; row++){
-        MacUILib_printf("%c", '\n');
+
         for(column = 0; column < gameWidth; column++){
             if(column == 0 || row == 0 || column == gameWidth - 1 || row == gameHeight - 1){
-                MacUILib_printf("%c", '%');
+                MacUILib_printf("%c", '#');
+            }
+            else if(row == currentPlayerPos.pos->y && column == currentPlayerPos.pos->x)
+            {
+                MacUILib_printf("%c", currentPlayerPos.getSymbol());
             }
             else{
                 MacUILib_printf("%c", ' ');
             }
         }
+        MacUILib_printf("\n");
     }
 }
 
@@ -137,6 +104,7 @@ void CleanUp(void)
 
     // delete game mechs from heap
     delete game;
+    delete player;
 
     MacUILib_uninit();
 }
