@@ -90,9 +90,10 @@ void GameMechs::clearInput()
 
 // More methods should be added here
 
-void GameMechs::generateFood(objPos blockOff)
+void GameMechs::generateFood(objPosArrayList* blockOff)
 {
     int newX, newY;
+    int playerLength = blockOff->getSize();
 
     int invalid;
     do{
@@ -101,7 +102,9 @@ void GameMechs::generateFood(objPos blockOff)
         newX = (rand() % (boardSizeX - 2)) + 1;
         newY = (rand() % (boardSizeY - 2)) + 1;
 
-        invalid |= (newX == blockOff.pos->x || newY == blockOff.pos->y);
+        for(int i = 0; i < playerLength; i++){
+            invalid |= (newX == blockOff->getElement(i).pos->x && newY == blockOff->getElement(i).pos->y);
+        }
     }while(invalid);
 
     food.setObjPos(newX, newY, 'O');

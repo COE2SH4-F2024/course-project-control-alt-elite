@@ -24,9 +24,9 @@ void objPosArrayList::insertHead(objPos thisPos)
 {
     if(listSize<arrayCapacity)
     {
-        for(int i = listSize;i>0;i--)
+        for(int i = listSize; i>0; i--)
         {
-            aList[listSize] = aList[listSize-1];
+            aList[i] = aList[i-1];
         }
         aList[0] = thisPos;
         listSize ++;
@@ -50,7 +50,7 @@ void objPosArrayList::removeHead()
         {
             aList[i] = aList[i+1];
         }
-        aList[listSize-1].~objPos();
+        // aList[listSize-1].~objPos();
         listSize --;
 
     }
@@ -60,7 +60,7 @@ void objPosArrayList::removeTail()
 {
     if(listSize > 0)
     {
-        aList[listSize-1].~objPos();
+        // aList[listSize-1].~objPos();
         listSize --;
     }
 }

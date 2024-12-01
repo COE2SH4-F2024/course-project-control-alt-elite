@@ -20,7 +20,7 @@ class Player
         Player(GameMechs* thisGMRef);
         ~Player();
 
-        objPos getPlayerPos() const; // Upgrade this in iteration 3.       
+        objPosArrayList* getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir();
         void movePlayer();
 
@@ -29,15 +29,19 @@ class Player
         Player(int xPos, int yPos, char sym);
         Player(const Player &m);
         Player& operator=(const Player &m);
+        
+        bool checkSelfCollision();
+        int getScore();
 
-
-    private:
-        objPos playerPos; // Upgrade this in iteration 3.       
+    private:     
         enum Dir myDir;
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* GMRef;
         
+        objPosArrayList* playerPosList;
+
+        int score;
 };
 
 #endif

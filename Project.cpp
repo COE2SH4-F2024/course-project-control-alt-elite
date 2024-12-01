@@ -72,33 +72,59 @@ void DrawScreen(void)
     
     // Draw Screen Routine
 
-    // Temporary
+    // Game boundaries
     int gameHeight = game->getBoardSizeY();
     int gameWidth = game->getBoardSizeX();
 
-    objPos currentPlayerPos = player->getPlayerPos();
+    // Player postition list
+    objPosArrayList* currentPlayerPos = player->getPlayerPos();
+    int playerLength = currentPlayerPos->getSize();
+
+    // Food posistion
     objPos currentFoodPos = game->getFoodPos();
 
-    int row, column;
-    for(row = 0; row < gameHeight; row++){
-        for(column = 0; column < gameWidth; column++){
+    bool blankFlag = true;
+    for(int row = 0; row < gameHeight; row++){
+        for(int column = 0; column < gameWidth; column++){
+            
+            // Reset blankFlag
+            blankFlag = true;
+
+            // Print boundaries
             if(column == 0 || row == 0 || column == gameWidth - 1 || row == gameHeight - 1){
                 MacUILib_printf("%c", '#');
+                blankFlag = false;
             }
-            else if(row == currentPlayerPos.pos->y && column == currentPlayerPos.pos->x)
-            {
-                MacUILib_printf("%c", currentPlayerPos.getSymbol());
-            }
+
+            // Print food
             else if(row == currentFoodPos.pos->y && column == currentFoodPos.pos->x)
-            {
-                MacUILib_printf("%c", currentFoodPos.getSymbol());
-            }
+                {
+                    MacUILib_printf("%c", currentFoodPos.getSymbol());
+                    blankFlag = false;
+                }
+
+            // Otherwise print other elements
             else{
+                for(int i = 0; i<playerLength; i++){
+                    if(row == currentPlayerPos->getElement(i).pos->y && column == currentPlayerPos->getElement(i).pos->x)
+                    {
+                        MacUILib_printf("%c", currentPlayerPos->getElement(i).getSymbol());
+                        blankFlag = false;
+                        break;
+                    }
+                }
+            }
+            
+            // If blank print space
+            if(blankFlag){
                 MacUILib_printf("%c", ' ');
             }
         }
         MacUILib_printf("\n");
     }
+
+    // Print score
+    cout << endl << "Score: " << player->getScore();
 }
 
 void LoopDelay(void)
@@ -109,9 +135,17 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();   
+    MacUILib_clearScreen();
 
-    // delete game mechs from heap
+    // Game end message
+    if(game->getLoseFlagStatus()){
+        cout << "You Lose!" << endl << endl << "Final Score: " << player->getScore() << endl;
+    }
+    else{
+        cout << "You exited with a score of " << player->getScore() << endl;
+    }
+
+    // delete heap variables
     delete game;
     delete player;
 
