@@ -27,11 +27,8 @@ class Player
         // More methods to be added here
         Player();
         Player(int xPos, int yPos, char sym);
-        Player(const Player &m);
-        Player& operator=(const Player &m);
         
         bool checkSelfCollision();
-        int getScore();
 
     private:     
         enum Dir myDir;
@@ -41,7 +38,6 @@ class Player
         
         objPosArrayList* playerPosList;
 
-        int score;
 };
 
 #endif

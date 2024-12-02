@@ -124,7 +124,7 @@ void DrawScreen(void)
     }
 
     // Print score
-    cout << endl << "Score: " << player->getScore();
+    cout << endl << "Score: " << game->getScore();
 }
 
 void LoopDelay(void)
@@ -139,10 +139,10 @@ void CleanUp(void)
 
     // Game end message
     if(game->getLoseFlagStatus()){
-        cout << "You Lose!" << endl << endl << "Final Score: " << player->getScore() << endl;
+        cout << "You Lose!" << endl << endl << "Final Score: " << game->getScore() << endl;
     }
     else{
-        cout << "You exited with a score of " << player->getScore() << endl;
+        cout << "You exited with a score of " << game->getScore() << endl;
     }
 
     // delete heap variables
