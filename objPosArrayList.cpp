@@ -50,7 +50,6 @@ void objPosArrayList::removeHead()
         {
             aList[i] = aList[i+1];
         }
-        // aList[listSize-1].~objPos();
         listSize --;
 
     }
@@ -60,7 +59,6 @@ void objPosArrayList::removeTail()
 {
     if(listSize > 0)
     {
-        // aList[listSize-1].~objPos();
         listSize --;
     }
 }

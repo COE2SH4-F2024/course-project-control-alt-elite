@@ -1,5 +1,7 @@
 #include "objPos.h"
 
+// Constructors and destructors
+
 objPos::objPos()
 {
     pos = new Pos;
@@ -15,9 +17,6 @@ objPos::objPos(int xPos, int yPos, char sym)
     pos->y = yPos;
     symbol = sym;
 }
-
-// Respect the rule of six / minimum four
-// [TODO] Implement the missing special member functions to meet the minimum four rule
 
 objPos::objPos(const objPos &a)
 {
@@ -43,6 +42,7 @@ objPos::~objPos()
     delete pos;
 }
 
+// Setters
 
 void objPos::setObjPos(objPos o)
 {
@@ -58,6 +58,8 @@ void objPos::setObjPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
+// Getters
+
 objPos objPos::getObjPos() const
 {
     objPos returnPos;
@@ -72,6 +74,8 @@ char objPos::getSymbol() const
 {
     return symbol;
 }
+
+// Other member functions
 
 bool objPos::isPosEqual(const objPos* refPos) const
 {

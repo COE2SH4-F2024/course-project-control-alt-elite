@@ -16,10 +16,6 @@ class objPos
 
         objPos();
         objPos(int xPos, int yPos, char sym);
-        
-        // Respect the rule of six / minimum four
-        // [TODO] Implement the missing special member functions to meet the minimum four rule
-
         objPos(const objPos &a);
         objPos& operator=(const objPos &a);
         ~objPos();

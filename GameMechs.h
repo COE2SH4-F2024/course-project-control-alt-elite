@@ -25,7 +25,7 @@ class GameMechs
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
-        ~GameMechs(); // is this one needed at all? Why or why not?
+        ~GameMechs();
         
         bool getExitFlagStatus() const; 
         void setExitTrue();
@@ -41,8 +41,6 @@ class GameMechs
         
         int getScore() const;
         void incrementScore();
-        
-        // More methods should be added here
 
         void generateFood(objPosArrayList* blockOff);
         objPos getFoodPos() const;

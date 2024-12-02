@@ -1,5 +1,7 @@
 #include "GameMechs.h"
 
+// Constructors and Destructors
+
 GameMechs::GameMechs()
 {
     boardSizeX = 20;
@@ -28,7 +30,6 @@ GameMechs::GameMechs(int boardX, int boardY)
 
 GameMechs::~GameMechs()
 {
-    
 }
 
 bool GameMechs::getExitFlagStatus() const
@@ -87,8 +88,6 @@ void GameMechs::clearInput()
 {
     input = 0;
 }
-
-// More methods should be added here
 
 void GameMechs::generateFood(objPosArrayList* blockOff)
 {
