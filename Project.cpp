@@ -127,8 +127,8 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
 
-    // Print score at bottom of screen
-    cout << endl << "Score: " << game->getScore();
+    // Print score
+    cout << endl << "Score: " << player->getScore();
 }
 
 void LoopDelay(void)

@@ -5,7 +5,6 @@ Player::Player(GameMechs* thisGMRef)
 {
     GMRef = thisGMRef;
     myDir = STOP;
-    score = 0;
 
     playerPosList = new objPosArrayList;
     int x = GMRef->getBoardSizeX()/2;
@@ -16,10 +15,15 @@ Player::Player(GameMechs* thisGMRef)
 Player::Player()
 {
     myDir = STOP;
-    score = 0;
 
     playerPosList = new objPosArrayList;
     playerPosList->insertHead(objPos(10, 5, '*'));
+}
+
+Player::Player(int xPos, int yPos, char sym)
+{
+    playerPosList = new objPosArrayList;
+    playerPosList->insertHead(objPos(xPos,yPos,sym));
 }
 
 Player::~Player()
@@ -127,7 +131,7 @@ void Player::movePlayer()
         
         if(GMRef->getFoodPos().isPosEqual(&newHead)){
             GMRef->generateFood(playerPosList);
-            score += 1;
+            GMRef->incrementScore();
         }
         else{
             playerPosList->removeTail();
@@ -155,9 +159,6 @@ bool Player::checkSelfCollision(){
     return false;
 }
 
-int Player::getScore(){
-    return score;
-}
 
 enum
 {

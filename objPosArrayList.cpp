@@ -7,12 +7,33 @@ objPosArrayList::objPosArrayList()
 {
     arrayCapacity = ARRAY_MAX_CAP;
     listSize = 0;
-    aList = new objPos[ARRAY_MAX_CAP];
+    aList = new objPos[arrayCapacity];
 }
 
 objPosArrayList::~objPosArrayList()
 {
     delete[] aList;
+}
+
+objPosArrayList::objPosArrayList(const objPosArrayList &m)
+{
+    arrayCapacity = m.arrayCapacity;
+    listSize = m.listSize;
+    aList = new objPos[arrayCapacity];
+    for(int i = 0; i < listSize; i++)
+    {
+        aList[i] = m.aList[i];
+    }
+}
+
+objPosArrayList& objPosArrayList:: operator=(const objPosArrayList &m)
+{
+    this->arrayCapacity = m.arrayCapacity;
+    this->listSize = m.listSize;
+    for(int i = 0; i < this->listSize; i++)
+    {
+        this->aList[i] = m.aList[i];
+    }
 }
 
 int objPosArrayList::getSize() const
