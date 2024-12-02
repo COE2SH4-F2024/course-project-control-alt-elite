@@ -44,7 +44,7 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     // Create gameMechs and Player objects on the heap
-    game = new GameMechs(20, 10);
+    game = new GameMechs(30, 15);
     player = new Player(game);
 
     game->generateFood(player->getPlayerPos());
@@ -128,7 +128,10 @@ void DrawScreen(void)
     }
 
     // Print score
-    cout << endl << "Score: " << player->getScore();
+    cout << endl << "Score: " << game->getScore();
+
+    // Exit message
+    cout << endl << endl << "Press SPACE to quit";
 }
 
 void LoopDelay(void)

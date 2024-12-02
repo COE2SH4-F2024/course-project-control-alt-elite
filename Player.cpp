@@ -28,7 +28,6 @@ Player::Player(int xPos, int yPos, char sym)
 
 Player::~Player()
 {
-    // delete any heap members here
     delete playerPosList;
 }
 
@@ -91,9 +90,12 @@ void Player::movePlayer()
 
         int newX = oldX;
         int newY = oldY;
+        char newSymbol = 0;
 
         // PPA3 Finite State Machine logic
         if(myDir==UP){
+            newSymbol = '^';
+            // Top barrier condition
             if(oldY < 2){
                 newY = GMRef->getBoardSizeY() - 2;
             }
@@ -102,6 +104,8 @@ void Player::movePlayer()
             }
         }
         else if(myDir==DOWN){
+            newSymbol = 'v';
+            // Bottom barrier condition
             if(oldY == GMRef->getBoardSizeY() - 2){
                 newY = 1;
             }
@@ -110,6 +114,8 @@ void Player::movePlayer()
             }
         }
         else if(myDir==LEFT){
+            newSymbol = '<';
+            // Left barrier condition
             if(oldX < 2){
                 newX = GMRef->getBoardSizeX() - 2;
             }
@@ -118,6 +124,8 @@ void Player::movePlayer()
             }
         }
         else if (myDir==RIGHT){
+            newSymbol = '>';
+            // right barrier condition
             if(oldX == GMRef->getBoardSizeX() - 2){
                 newX = 1;
             }
@@ -126,17 +134,21 @@ void Player::movePlayer()
             }
         }
 
-        objPos newHead = objPos(newX, newY, '*');
+        // Create new head
+        objPos newHead = objPos(newX, newY, newSymbol);
         playerPosList->insertHead(newHead);
         
+        // Check if food eaten
         if(GMRef->getFoodPos().isPosEqual(&newHead)){
             GMRef->generateFood(playerPosList);
             GMRef->incrementScore();
         }
+        // Only remove tail if food not eaten
         else{
             playerPosList->removeTail();
         }
 
+        // Check for self collision
         if(checkSelfCollision()){
             GMRef->setExitTrue();
             GMRef->setLoseFlag();
@@ -144,21 +156,20 @@ void Player::movePlayer()
     }
 }
 
-// More methods to be added
-
 bool Player::checkSelfCollision(){
     objPos headPos = playerPosList->getHeadElement();
     int playerLength = playerPosList->getSize();
 
+    // Check each body objPos against head objPos
     for(int i = 1; i < playerLength; i++){
         if(playerPosList->getElement(i).isPosEqual(&headPos)){
             return true;
         }
     }
 
+    // if no collision found returns false
     return false;
 }
-
 
 enum
 {

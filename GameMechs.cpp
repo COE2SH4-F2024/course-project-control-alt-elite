@@ -1,7 +1,5 @@
 #include "GameMechs.h"
 
-// Constructors and Destructors
-
 GameMechs::GameMechs()
 {
     boardSizeX = 20;
@@ -96,16 +94,20 @@ void GameMechs::generateFood(objPosArrayList* blockOff)
 
     int invalid;
     do{
+        // set invalid flag false
         invalid = 0;
 
+        // Generate new random coordinates
         newX = (rand() % (boardSizeX - 2)) + 1;
         newY = (rand() % (boardSizeY - 2)) + 1;
 
+        // Check every element in blockOff against new random coordinates
         for(int i = 0; i < playerLength; i++){
             invalid |= (newX == blockOff->getElement(i).pos->x && newY == blockOff->getElement(i).pos->y);
         }
     }while(invalid);
 
+    // Move food to new location
     food.setObjPos(newX, newY, 'O');
 }
 
